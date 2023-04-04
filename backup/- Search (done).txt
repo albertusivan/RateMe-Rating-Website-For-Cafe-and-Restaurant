@@ -1,0 +1,12 @@
+- Search (done)
+- Add Cafe (ivan)
+- Add Comment (sawsan)
+- Add Rating (rifqy)
+
+diperlukan : 
+- tambahin sample database 3-6, isinya(nama cafe/resto, alamat, rating, image)
+  untuk image ukuran 1280 x 720 diapload ke google image
+
+- banner content buat carousel yang selaras sama tema dan color palet 3 biji ukuran 1280 x 500 diapload ke google image
+
+- logo applikasi yang selaras sama tema dan color palet
