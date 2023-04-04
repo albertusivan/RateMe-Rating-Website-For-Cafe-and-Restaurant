@@ -19,9 +19,13 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-lg" style="background-color: #7C6354;">
+        <nav class="navbar sticky-top navbar-expand-md navbar-light shadow-lg" style="background-color: #7C6354;">
             <div class="container">
-                <a class="navbar-brand text-white" href="{{ url('/') }}">
+
+                <span >
+                    <img src="https://lh3.googleusercontent.com/pw/AMWts8D5pZnO_VZOexeLxRVXQTQXpW0sR6aFemni5WtRgDm28mflWSICbSiNz_oX9GoXlrOAnlr0-cMNMzrvSUgxPprhdwqwtY8mmFu_l4iRa7oWaviw5LzQ-T9Ou9EFoRcGuIOX4PTnFSRVpVmvmV-qz7nQ=w588-h575-s-no?authuser=0" width="45" height="45">
+                </span>
+                <a class="navbar-brand text-white ms-3" href="{{ url('/') }}">
                     {{ config('app.name', 'RateMe') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
