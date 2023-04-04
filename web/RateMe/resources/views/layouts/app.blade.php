@@ -23,7 +23,7 @@
             <div class="container">
 
                 <span >
-                    <img src="https://lh3.googleusercontent.com/pw/AMWts8D5pZnO_VZOexeLxRVXQTQXpW0sR6aFemni5WtRgDm28mflWSICbSiNz_oX9GoXlrOAnlr0-cMNMzrvSUgxPprhdwqwtY8mmFu_l4iRa7oWaviw5LzQ-T9Ou9EFoRcGuIOX4PTnFSRVpVmvmV-qz7nQ=w588-h575-s-no?authuser=0" width="45" height="45">
+                    <img src="https://lh3.googleusercontent.com/pw/AMWts8CZ8NaZHVDMmcNzNbxA_6h2snzV03bU5hGn8JSRa9x_PGP4Qfsj4wHEawBGStJm9pv8pzcw6fSwwg5G-tMB10qwZMG7zsUweAVGE5M9vCOwOuuDRTJ4CHP6mC_0O1gq0qLIZlb_8YYoMrrajPWuF1_V=w588-h575-s-no?authuser=0" width="45" height="45">
                 </span>
                 <a class="navbar-brand text-white ms-3" href="{{ url('/') }}">
                     {{ config('app.name', 'RateMe') }}
