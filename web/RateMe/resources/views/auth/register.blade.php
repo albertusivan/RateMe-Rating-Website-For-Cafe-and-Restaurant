@@ -17,7 +17,10 @@
                 <form method="POST" action="{{ route('register') }}">
                 @csrf
                   <div class="d-flex align-items-center mb-2 pb-1">
-                    <span class="h1 fw-bold mb-0">RateMe</span>
+                    <span >
+                        <img src="https://lh3.googleusercontent.com/pw/AMWts8BrOkWjjdFWykeMPyQcRb5pUKNWhn3l8Ap7zBxUo2J6THtBJevWFKYXIvzB8jG2nVY9Ex59kaC5yXEMuFdekf2mizDvqjZtiaACyzpFufm3GNYXYH_A2PCZfEwTwNYsXBp7A9cNfLkDgZ0e9xXHuHwG=w588-h575-s-no?authuser=0" width="50" height="50">
+                    </span>
+                    <span class="h1 fw-bold ms-3 mb-0">RateMe</span>
                   </div>
 
                   <h5 class="fw-normal mb-3 pb-" style="letter-spacing: 1px;">Register your account</h5>
