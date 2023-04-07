@@ -89,8 +89,9 @@ class CafeController extends Controller
         // return back();
     }
 
-    public function cafe_menu_destroy()
+    public function cafe_menu_destroy(Cafe $cafe, Menu $menu)
     {
-        # code...
+        $cafe->menu()->detach($menu->id);
+        return back();
     }
 }

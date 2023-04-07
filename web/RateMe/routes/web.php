@@ -19,7 +19,7 @@ Route::get('/cafe', [App\Http\Controllers\CafeController::class, 'index'])->name
 Route::resource('cafe', CafeController::class);
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('cafe.menu', MenuController::class);
+    Route::resource('cafe.menu', MenuController::class)->shallow();
     Route::resource('cafe.comments', CommentController::class)->shallow();
 });
 

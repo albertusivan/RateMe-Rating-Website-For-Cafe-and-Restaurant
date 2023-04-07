@@ -28,12 +28,20 @@
                                 <div class="col-10">{{$menu->name}} </div>
                                 <div class="col"><span class="text">Rp.{{ $menu->harga }}</span></div>
                             </div>
+                            @if (Auth::user()->admin==1)
+                                    <form action="{{ route('menu.destroy', $menu->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-link text-danger">Delete</button>
+                                    </form>
+                            @endif
                         </li>
                     @endforeach
                     </ul>
                 @else
                     <h6 class="mt-4 mb-3">No Recommended Menu Yet!</h6>
                 @endif
+                
             </ul>
 
             <h3 class="comment mt-4">Comments</h3>
