@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cafe;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class CafeController extends Controller
@@ -76,7 +77,7 @@ class CafeController extends Controller
      */
     public function destroy(Cafe $cafe)
     {
-        //
+
     }
 
     public function cafe_menu_store(Request $request, Cafe $cafe)
@@ -89,8 +90,9 @@ class CafeController extends Controller
         // return back();
     }
 
-    public function cafe_menu_destroy()
+    public function cafe_menu_destroy(Cafe $cafe, Menu $menu)
     {
-        # code...
+        $cafe->menu()->detach($menu->id);
+        return back();
     }
 }
