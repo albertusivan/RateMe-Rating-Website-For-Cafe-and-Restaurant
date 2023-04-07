@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Cafe;
 
 class MenuController extends Controller
@@ -24,6 +25,17 @@ class MenuController extends Controller
         //
     }
 
+    public function destroy(Menu $menu)
+    {
+        $menu->delete();
+        return back();
+    }
+
+    public function delete(Menu $menu)
+    {
+        $menu->delete();
+        return back();
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -72,8 +84,5 @@ class MenuController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Menu $menu)
-    {
-        //
-    }
+
 }

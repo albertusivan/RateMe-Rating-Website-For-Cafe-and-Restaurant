@@ -5,7 +5,8 @@
     <div class="card">
         <img src="{{$cafe->image}}" class="card-image-top">
         <div class="card-bordy p-4">
-            <h1>{{$cafe->title}}</h1>
+            <h1>{{$cafe->title}}
+            </h1>
             <div class="text-warning mb-2">
                     <b>{{$cafe->rating_star}} </b><i class="fas fa-star"></i>
             </div>
@@ -13,9 +14,11 @@
             <h3>Recommended Menu
                 @if (Auth::user())
                 @if (Auth::user()->admin == 1)
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <i class="add-menu fas fa-plus""></i>
-                    </button>
+                    <form action="{{ route('menu.destroy', $menu->id)}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-link text-warning">Bookmark</button>
+                    </form>
                 @endif
                 @endif
             </h3>
@@ -28,6 +31,15 @@
                                 <div class="col-10">{{$menu->name}} </div>
                                 <div class="col"><span class="text">Rp.{{ $menu->harga }}</span></div>
                             </div>
+                            @if (Auth::user())
+                            @if (Auth::user()->admin==1)
+                                    <form action="{{ route('menu.destroy', $menu->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-link text-danger">Delete</button>
+                                    </form>
+                            @endif
+                            @endif
                         </li>
                     @endforeach
                     </ul>
@@ -35,6 +47,7 @@
                     <h6 class="mt-4 mb-3">No Recommended Menu Yet!</h6>
                 @endif
             </ul>
+
 
             <h3 class="comment mt-4">Comments</h3>
             <ul class="list-group list-group-flush">
@@ -92,14 +105,6 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
-                <!-- <div class="col-md-6">
-                    <form action="#" method="POST">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="menu"></input>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div> -->
             </div>
         </div>
         </div>
