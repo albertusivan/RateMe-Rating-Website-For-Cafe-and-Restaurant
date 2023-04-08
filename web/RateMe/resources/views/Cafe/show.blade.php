@@ -7,23 +7,38 @@
         <div class="card-bordy p-4">
             <h1>{{$cafe->title}}
                 @if (Auth::user())
-                @if (Auth::user()->admin == 0)
-                <form action="{{ route('cafe.bookmark.store', $cafe->id) }}" method="POST">
-                        @csrf
-                    <button type="submit" class="btn btn-warning btn-sm">
-                    <b>Bookmark </b>
-                    <i class="add-menu fas fa-plus"></i>
-                    </button>
-                </form>
+                    @if (count($cafe->bookmarks))
+                        @foreach ($cafe->bookmarks as $bookmark)
+                            @if ($bookmark->user_id == Auth::user()->id)
+                                @if($bookmark->cafe_id == $cafe->id)
+                                    <form action="{{ route('cafe.bookmark.store', $cafe->id) }}" method="POST">
+                                            @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <b>UDAH Bookmark </b>
+                                            <i class="add-menu fas fa-plus"></i>
+                                        </button>
+                                    </form>
+                                @endif
+                            @endif
+                        @endforeach
+                    @else
+                        <form action="{{ route('cafe.bookmark.store', $cafe->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-warning btn-sm">
+                                <b>Bookmark </b>
+                                <i class="add-menu fas fa-plus"></i>
+                            </button>
+                        </form>
+                    @endif
                 @endif
-                @endif
+                
                 @if (Auth::user())
-                @if (Auth::user()->admin == 0)
-                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <b>Add Rating </b>
-                    <i class="add-menu fas fa-plus"></i>
-                    </button>
-                @endif
+                    @if (Auth::user()->admin == 0)
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <b>Add Rating </b>
+                        <i class="add-menu fas fa-plus"></i>
+                        </button>
+                    @endif
                 @endif
             </h1>
             <div class="text-warning mb-2">

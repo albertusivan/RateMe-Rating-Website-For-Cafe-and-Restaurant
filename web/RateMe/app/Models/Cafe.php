@@ -18,4 +18,8 @@ class Cafe extends Model
     public function menus() {
         return $this-> hasMany(Menu::class);
     }
+
+    public function bookmarks() {
+        return $this-> hasMany(Bookmark::class);
+    }
 }
