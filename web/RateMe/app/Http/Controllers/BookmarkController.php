@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bookmark;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Cafe;
 
 class BookmarkController extends Controller
 {
@@ -26,9 +28,14 @@ class BookmarkController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Cafe $cafe)
     {
-        //
+        Bookmark::create([
+            'user_id' => Auth::user()->id,
+            'cafe_id' => $cafe->id,
+        ]);
+
+        return back();
     }
 
     /**
