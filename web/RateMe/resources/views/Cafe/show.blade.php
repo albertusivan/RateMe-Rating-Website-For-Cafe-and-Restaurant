@@ -6,6 +6,25 @@
         <img src="{{$cafe->image}}" class="card-image-top">
         <div class="card-bordy p-4">
             <h1>{{$cafe->title}}
+                @if (Auth::user())
+                @if (Auth::user()->admin == 0)
+                <form action="{{ route('cafe.bookmark.store', $cafe->id) }}" method="POST">
+                        @csrf
+                    <button type="submit" class="btn btn-warning btn-sm">
+                    <b>Bookmark </b>
+                    <i class="add-menu fas fa-plus"></i>
+                    </button>
+                </form>
+                @endif
+                @endif
+                @if (Auth::user())
+                @if (Auth::user()->admin == 0)
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <b>Add Rating </b>
+                    <i class="add-menu fas fa-plus"></i>
+                    </button>
+                @endif
+                @endif
             </h1>
             <div class="text-warning mb-2">
                     <b>{{$cafe->rating_star}} </b><i class="fas fa-star"></i>
@@ -14,11 +33,9 @@
             <h3>Recommended Menu
                 @if (Auth::user())
                 @if (Auth::user()->admin == 1)
-                    <form action="{{ route('menu.destroy', $menu->id)}}" method="post">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-link text-warning">Bookmark</button>
-                    </form>
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="add-menu fas fa-plus"></i>
+                    </button>
                 @endif
                 @endif
             </h3>

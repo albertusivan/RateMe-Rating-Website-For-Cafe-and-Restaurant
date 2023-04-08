@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CafeController;
@@ -19,6 +20,7 @@ Route::get('/cafe', [App\Http\Controllers\CafeController::class, 'index'])->name
 Route::resource('cafe', CafeController::class);
 
 Route::group(['middleware' => ['auth']], function() {
+    Route::resource('cafe.bookmark', BookmarkController::class)->shallow();
     Route::resource('cafe.menu', MenuController::class)->shallow();
     Route::resource('cafe.comments', CommentController::class)->shallow();
 });
