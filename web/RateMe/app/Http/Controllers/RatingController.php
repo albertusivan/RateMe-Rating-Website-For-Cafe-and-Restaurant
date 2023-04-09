@@ -5,10 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\Cafe;
 
 class RatingController extends Controller
 {
+    public function updateCafeRating($cafeId)
+    {
+        $data = DB::table('ratings')->where('cafe_id', $cafeId)->pluck('rating');
+        $sum = 0;
+        $count = 0;
+        foreach ($data as $item) {
+            $sum += $item;
+            $count++;
+        }
+        $avg = ($count > 0) ? $sum / $count : 0;
+        DB::table('cafes')->where('id', $cafeId)->update(['avg_rating' => $avg]);
+    }
+
     /**
      * Display a listing of the resource.
      */

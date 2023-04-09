@@ -3,95 +3,107 @@
 @section('content')
 <div class="container mt-4">
     <div class="card">
-        <img src="{{$cafe->image}}" class="card-image-top">
+        <img src="{{$cafe->image}}" class="rounded w-100">
         <div class="card-bordy p-4">
-            <h1>{{$cafe->title}}
+            <div class="row">
+                <div class="col-md-auto">
+                    <h2>{{$cafe->title}}</h2>
+                </div>
+                <div class="col-md-auto mt-1">
+                    @php
+                    $id = $cafe->id;
+                    $data = DB::table('ratings')->where('cafe_id' , $id)->pluck('rating');
+                    $sum = 0;
+                    $count = 0;
+                    @endphp
 
-                @if (Auth::user())
-                @if (Auth::user()->admin == 0)
-                @if (count($cafe->bookmarks))
-                @foreach ($cafe->bookmarks as $bookmark)
-                @if ($bookmark->cafe_id == $cafe->id && $bookmark->user_id == Auth::user()->id)
-                <form action="{{ route('bookmark.destroy', $bookmark->id) }}" method="POST">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        <b>Hapus Bookmark </b>
-                        <i class="add-menu fas fa-minus"></i>
+                    @foreach ($data as $item)
+                    @php
+                    $sum += $item;
+                    $count++;
+                    @endphp
+                    @endforeach
+
+                    @php
+                    $avg = ($count > 0)? $sum/$count : 0;
+                    $format_avg = number_format($avg, 1);
+                    @endphp
+
+                    <div class="text-warning mb-2">
+                        <h4><b>{{$format_avg}} </b><i class="fas fa-star"></i></h4>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    @if (Auth::user())
+                    @if (Auth::user()->admin == 0)
+                    @php
+                    $v = true
+                    @endphp
+
+                    @if (count($cafe->bookmarks))
+                    @foreach ($cafe->bookmarks as $bookmark)
+                    @if ($bookmark->user_id == Auth::user()->id)
+                    @if ($bookmark->cafe_id == $cafe->id)
+                    @php
+                    $v = false
+                    @endphp
+                    @endif
+                    @endif
+                    @endforeach
+                    @endif
+                    @if ($v)
+                    <form action="{{ route('cafe.bookmark.store', $cafe->id) }}" method="POST">
+                        @csrf
+                        <span>
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <b> Bookmark </b>
+                                <i class="add-menu fas fa-heart"></i>
+                            </button>
+                        </span>
+                    </form>
+                    @else
+                    <form action="{{ route('bookmark.destroy', $bookmark->id) }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <b>Hapus Bookmark </b>
+                            <i class="add-menu fas fa-minus"></i>
+                        </button>
+                    </form>
+                    @endif
+                    @endif
+                    @endif
+                </div>
+                <div class="col">
+                    @if (Auth::user())
+                    @if (Auth::user()->admin == 0)
+                    @php
+                    $f = true
+                    @endphp
+
+                    @if (count($cafe->ratings))
+                    @foreach ($cafe->ratings as $rating)
+                    @if ($rating->user_id == Auth::user()->id)
+                    @if ($rating->cafe_id == $cafe->id)
+                    @php
+                    $f = false
+                    @endphp
+
+                    @endif
+                    @endif
+                    @endforeach
+                    @endif
+                    @if ($f)
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ratingmodal">
+                        <b>Rating </b><i class="add-menu fas fa-plus"></i>
                     </button>
-                </form>
-                @break
-                @elseif ($bookmark->cafe_id == $cafe->id && $bookmark->user_id != Auth::user()->id)
-                <form action="{{ route('cafe.bookmark.store', $cafe->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-warning btn-sm">
-                        <b>Bookmark </b>
-                        <i class="add-menu fas fa-plus"></i>
-                    </button>
-                </form>
-                @break
-                @endif
-                @endforeach
-                @else
-                <form action="{{ route('cafe.bookmark.store', $cafe->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-warning btn-sm">
-                        <b>Bookmark </b>
-                        <i class="add-menu fas fa-plus"></i>
-                    </button>
-                </form>
-                @endif
-                @endif
-                @endif
-
-                @if (Auth::user())
-                @if (Auth::user()->admin == 0)
-                @if (count($cafe->ratings))
-                @foreach ($cafe->ratings as $rating)
-                @if ($rating->cafe_id == $cafe->id && $rating->user_id == Auth::user()->id)
-                <h5>Your Rating : {{$rating->rating}}</h5>
-                @break
-                @elseif ($rating->cafe_id == $cafe->id && $rating->user_id != Auth::user()->id)
-                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ratingmodal">
-                    <b>Rating </b><i class="add-menu fas fa-plus"></i>
-                </button>
-                @break
-                @endif
-                @endforeach
-                @else
-                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ratingmodal">
-                    <b>Rating </b><i class="add-menu fas fa-plus"></i>
-                </button>
-                @endif
-                @endif
-                @endif
-
-            </h1>
-
-            @php
-            $id = $cafe->id;
-            $items = [];
-            $data = DB::table('ratings')->where('cafe_id' , $id)->pluck('rating' );
-            $sum = 0;
-            $count = 0;
-            @endphp
-
-            @foreach ($data as $item)
-            @php
-            $items[] = $item;
-            $sum += $item;
-            $count++;
-            @endphp
-            @endforeach
-
-            @php
-            $avg = ($count > 0)? $sum/$count : 0;
-            @endphp
-
-            <div class="text-warning mb-2">
-                <b>{{$avg}} </b><i class="fas fa-star"></i>
+                    @else
+                    <h4><b>Your Rating : {{$rating->rating}}</b></h4>
+                    @endif
+                    @endif
+                    @endif
+                </div>
             </div>
-
             <p>{{ $cafe->description}}</p>
             <h3>Recommended Menu
                 @if (Auth::user())
