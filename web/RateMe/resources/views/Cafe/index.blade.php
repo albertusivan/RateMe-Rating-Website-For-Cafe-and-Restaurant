@@ -55,6 +55,8 @@
         </button>
     </div>
 
+
+    <h3><b>List Cafe and Restaurant</b></h3>
     <div class="row">
         @if (count($cafe))
             @foreach($cafe as $cafe)
