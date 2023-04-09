@@ -13,9 +13,9 @@ class CafeController extends Controller
      */
     public function index(Request $request)
     {
-        if($request){
-            $cafe = cafe::where('title', 'like', '%'.$request->search.'%')->get();
-        }else{
+        if ($request) {
+            $cafe = cafe::where('title', 'like', '%' . $request->search . '%')->get();
+        } else {
             $cafe = cafe::all();
         }
 
@@ -61,7 +61,7 @@ class CafeController extends Controller
      */
     public function edit($id)
     {
-
+        return back();
     }
 
     /**
@@ -77,7 +77,6 @@ class CafeController extends Controller
      */
     public function destroy(Cafe $cafe)
     {
-
     }
 
     public function cafe_menu_store(Request $request, Cafe $cafe)

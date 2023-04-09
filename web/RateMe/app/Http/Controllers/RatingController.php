@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cafe;
 
-class CommentController extends Controller
+class RatingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,22 +30,22 @@ class CommentController extends Controller
      */
     public function store(Request $request, Cafe $cafe)
     {
-        $request->validate(['comment' => 'required']);
+        $request->validate(['rating' => 'required']);
         // Comment::create($request->comment);
 
-        Comment::create([
+        Rating::create([
             'user_id' => Auth::user()->id,
             'cafe_id' => $cafe->id,
-            'content' => $request->comment,
+            'rating' => $request->rating
         ]);
 
-        return redirect()->route('cafe.edit', $cafe->id);
+        return back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Comment $comment)
+    public function show(Rating $rating)
     {
         //
     }
@@ -53,7 +53,7 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Comment $comment)
+    public function edit(Rating $rating)
     {
         //
     }
@@ -61,7 +61,7 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, Rating $rating)
     {
         //
     }
@@ -69,9 +69,8 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy(Rating $rating)
     {
-        $comment->delete();
-        return back();
+        //
     }
 }

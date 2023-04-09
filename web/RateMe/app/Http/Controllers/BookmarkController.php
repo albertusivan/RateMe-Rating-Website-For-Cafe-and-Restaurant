@@ -14,7 +14,8 @@ class BookmarkController extends Controller
      */
     public function index()
     {
-        //
+        $cafe = cafe::all();
+        return view('bookmark.show',  compact('cafe'));
     }
 
     /**
@@ -23,6 +24,15 @@ class BookmarkController extends Controller
     public function create()
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Bookmark $bookmark)
+    {
+        $bookmark->delete();
+        return back();
     }
 
     /**
@@ -62,11 +72,5 @@ class BookmarkController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Bookmark $bookmark)
-    {
-        //
-    }
+
 }
