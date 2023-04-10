@@ -5,6 +5,10 @@
 
     <h1 class="mb-4 text-center"><b>{{Auth::user()->name}} Bookmark</b></h1>
     <div class="row">
+        @php
+        $f = true
+        @endphp
+
         @foreach($cafe as $cafe)
         @if($cafe->bookmarks)
         @foreach ($cafe->bookmarks as $bookmark)
@@ -24,10 +28,20 @@
                 </div>
             </div>
         </div>
+        @php
+        $f = false
+        @endphp
         @endif
+
         @endforeach
         @endif
         @endforeach
+
+        @if($f)
+        <div class="container mt-5 mb-5">
+            <h5 class="mt-4 mb-3 text-center"><b>No Cafe or Restaurant has been added!</b></h5>
+        </div>
+        @endif
     </div>
 </div>
 @endsection
