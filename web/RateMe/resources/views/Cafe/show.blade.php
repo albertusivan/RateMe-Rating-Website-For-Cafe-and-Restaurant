@@ -214,7 +214,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>Add Rating Menu</h1>
+                        <h1>Add Rating</h1>
                         <form action="{{ route('cafe.rating.store', $cafe->id) }}" method="POST">
                             @csrf
                             <div class="form-group">

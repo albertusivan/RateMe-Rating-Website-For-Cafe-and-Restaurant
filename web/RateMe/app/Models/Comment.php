@@ -11,11 +11,13 @@ class Comment extends Model
 
     protected $fillable = ['user_id', 'cafe_id', 'content'];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function cafe() {
-        return $this-> belongsTo(Cafe::class);
+    public function cafe()
+    {
+        return $this->belongsTo(Cafe::class);
     }
 }
