@@ -12,19 +12,42 @@ class BookmarkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function index(Request $request)
     {
-        $cafe = cafe::all();
-        return view('bookmark.show',  compact('cafe'));
+        $request->validate(['user_id' => 'required']);
+
+        if ($request) {
+            $cafe = Bookmark::where('user_id', '=', $request->user_id)->get();
+        }
+
+        if (request()->segment(1) == 'api') return response()->json([
+            "error" => false,
+            "list" => $cafe,
+        ]);
+
+        // return view('cafe.index', ['list' => $cafe]);
+        return view('cafe.index', compact('cafe'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $attrs = $request->validate([
+            'user_id' => 'required',
+            'cafe_id' => 'required',
+        ]);
+
+        Bookmark::create([
+            'user_id' => $attrs['user_id'],
+            'cafe_id' => $attrs['cafe_id'],
+        ]);
+
+        if (request()->segment(1) == 'api') return response()->json([
+            "error" => false,
+            "message" => 'bookmark added',
+        ]);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -43,6 +66,11 @@ class BookmarkController extends Controller
         Bookmark::create([
             'user_id' => Auth::user()->id,
             'cafe_id' => $cafe->id,
+        ]);
+
+        if (request()->segment(1) == 'api') return response()->json([
+            "error" => false,
+            "message" => 'tambah berhasil',
         ]);
 
         return back();
@@ -71,6 +99,4 @@ class BookmarkController extends Controller
     {
         //
     }
-
-
 }

@@ -19,8 +19,32 @@ class CafeController extends Controller
             $cafe = cafe::all();
         }
 
+        if (request()->segment(1) == 'api') return response()->json([
+            "error" => false,
+            "list" => $cafe,
+        ]);
+
+        // return view('cafe.index', ['list' => $cafe]);
         return view('cafe.index', compact('cafe'));
     }
+
+    public function search(Request $request)
+    {
+        $request->validate(['cafe_name' => 'required']);
+
+        if ($request) {
+            $cafe = cafe::where('title', 'like', '%' . $request->cafe_name . '%')->get();
+        }
+
+        if (request()->segment(1) == 'api') return response()->json([
+            "error" => false,
+            "list" => $cafe,
+        ]);
+
+        // return view('cafe.index', ['list' => $cafe]);
+        return view('cafe.index', compact('cafe'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -43,6 +67,11 @@ class CafeController extends Controller
         ]);
 
         $cafe = Cafe::create($request->all());
+
+        if (request()->segment(1) == 'api') return response()->json([
+            "error" => false,
+            "message" => 'tambah berhasil',
+        ]);
 
         return redirect()->route('cafe.show', $cafe->id);
     }
